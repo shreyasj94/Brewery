@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Brewery Search</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="https://fonts.googleapis.com/css?family=AIzaSyA0BUWJp4fYrH8fBHynUn5Ue64T9qjs_jQ" rel="stylesheet">
+
+    <style>
+        *{font-family: 'Poppins', sans-serif;}
+
+        body {
+            padding: 0;
+            background-color: #ececea;
+        }
+        h1 {
+            padding: 3rem 0;
+        }
+        #hero-area {
+            width:100%;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+
+            -webkit-transform: perspective(1px) translateZ(0);
+            transform: perspective(1px) translateZ(0);
+            -webkit-transition-property: color;
+            transition-property: color;
+            -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+
+            padding-bottom: 2rem;
+            margin-bottom: 2rem; 
+            background:rgb(192, 192, 192);
+            box-shadow: inset 0px -15px 76px -3px rgb(255, 255, 255);
+            box-shadow: 0px 14px 13px -12px rgba(0,0,0,0.75);
+
+            border: 6px solid #fff;
+            border-top: 2px transparent;
+            
+            border-radius: 20px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        #hero-area:before {
+            
+            border-radius: 15px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+
+            margin: 5px;
+            margin-top: 0px;
+
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            background: content-box radial-gradient(yellow, skyblue);
+
+            -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+            -webkit-transition-duration: 1.5s;
+            transition-duration: 1.5s;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        #hero-area:hover:before, #hero-area:focus:before, #hero-area:active:before {
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+            transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+        }
+
+        #hero-area:hover:before > div >  div >  h1, #hero-area:focus:before > div > div > h1, #hero-area:active:before > div > div > h1{
+            color: white;
+        }
+
+        .container-fluid {
+            position: relative;
+        }
+        .search-box {
+            padding: 2rem;
+            margin-bottom: 1rem;
+            background-color: rgba(255,255,255,.3);
+            border-radius: 4px
+        }
+        #results-header {
+            padding-bottom: 1rem
+        }
+        .highlight {
+            background-color: yellow;
+            -webkit-transition: background-color 500ms ease-out;
+            -moz-transition: background-color 500ms ease-out;
+            -o-transition: background-color 500ms ease-out;
+            transition: background-color 500ms ease-out;
+        }
+        .highlighter-off .highlight {
+            background-color: transparent;
+        }
+
+        .btn-dark {
+            color: #0f1011;
+            background-color: #ffc107;
+            border-color: #0062cc;
+        }
+        .card-topper {
+            padding: .5rem 1.25rem;
+            font-size: .75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .card-topper.micro {
+            border: 8px solid #ffb732;
+        }
+        .card-topper.planning {
+            border: 8px dashed #6a6a6a;
+        }
+        .card-topper.large {
+            border: 8px dotted #4344FF;
+        }
+        .card-topper.brewpub {
+            border: 8px solid #FF0000;
+            border-bottom: none;
+        }
+        .card-topper.regional {
+            border: 8px dashed #00e5e5;
+            border-bottom: none;
+        }
+        .card-topper.contract {
+            border: 8px dotted #98ef02;
+            border-bottom: none;
+        }
+        .card-topper.proprietor {
+            border: 8px solid #121597;
+            border-top: none;
+        }
+        .card-topper.bar {
+            border: 8px solid #a719df;
+            border-top: none;
+        }
+        .footer {
+            border-top: 1px solid #ccc;
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="hero-area">
+
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="text-center col-sm-8">
+                    <h1>Brewery Search</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="search-box text-center col-sm-7 col-md-11 col-lg-7">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <input type="text" class="form-control" id="search-input" placeholder="Use keyword for Search">
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="custom-control custom-radio custom-control-inline mt-2 mb-2">
+                                <input type="radio" id="AtoZ" name="sort-order" class="custom-control-input" value="AtoZ">
+                                <label class="custom-control-label" for="AtoZ">A-Z</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline mt-2 mb-2">
+                                <input type="radio" id="ZtoA" name="sort-order" class="custom-control-input" value="ZtoA">
+                                <label class="custom-control-label" for="ZtoA">Z-A</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline mt-2 mb-2">
+                                <input type="radio" id="groupType" name="sort-order" class="custom-control-input" value="groupType">
+                                <label class="custom-control-label" for="groupType">Group type</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button id="search-btn" class="btn btn-dark btn-block">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div id="container" class="container-fluid">
+            <div class="row" id="results-header">
+                <div class="col-sm-12 col-md-8 col-lg-9">
+                    <div id="header"></div>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3 text-right">
+                    <button id="highlightToggler" class="btn btn-warning btn-sm">Hide keyword highlighting</button>
+                </div>
+            </div>
+            <div id="resultsArea" data-highlight="true" class="row">
+            </div>
+            <div id="footer">
+                <small> A project by Shreyas Vasant Jadhav</small>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="brewery.js"></script>
+</body>
+
+</html>
